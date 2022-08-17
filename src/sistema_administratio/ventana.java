@@ -1,6 +1,8 @@
 
 package sistema_administratio;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -45,10 +47,12 @@ public class ventana extends JFrame{
       panelInicioSesion.add(lblLOGIN);
       
       JLabel lblUSUARIO = new JLabel("Usuario");
+      lblUSUARIO.setFont(new Font("Century Gothic",Font.BOLD,12));
       lblUSUARIO.setBounds(60,40,100,15);
       panelInicioSesion.add(lblUSUARIO);
       
       JLabel lblCONTRA = new JLabel("Contraseña");
+      lblCONTRA.setFont(new Font("Century Gothic",Font.BOLD,12));
       lblCONTRA.setBounds(60,100,100,15);
       panelInicioSesion.add(lblCONTRA);
       
@@ -61,6 +65,8 @@ public class ventana extends JFrame{
       panelInicioSesion.add(txtContra);
       
       JButton btnIngresar = new JButton("Ingresar");
+      btnIngresar.setBackground(new Color(234, 223, 196));
+      btnIngresar.setFont(new Font("Century Gothic",Font.BOLD,12));
       btnIngresar.setBounds(120, 145, 180, 35);
       panelInicioSesion.add(btnIngresar);
       ActionListener ingresar = new ActionListener(){
@@ -78,6 +84,8 @@ public class ventana extends JFrame{
          btnIngresar.addActionListener(ingresar);
          
          JButton btnCrearUsuario = new JButton("Registrarse");
+         btnCrearUsuario.setBackground(new Color(234, 223, 196));
+         btnCrearUsuario.setFont(new Font("Century Gothic",Font.BOLD,12));
          btnCrearUsuario.setBounds(120, 200, 180, 35);
          panelInicioSesion.add(btnCrearUsuario);
          ActionListener crearUsuario = new ActionListener() {
@@ -117,6 +125,8 @@ public class ventana extends JFrame{
         panelInicioSesion.setVisible(false);
         
         JButton btnadminClientes = new JButton("Administración de clientes");
+        btnadminClientes.setBackground(new Color(230, 234, 196));
+        btnadminClientes.setFont(new Font("Century Gothic",Font.BOLD,12));
         btnadminClientes.setBounds(150, 10, 250, 25);
         panelControl.add(btnadminClientes);
         ActionListener administrarCliente = new ActionListener(){
@@ -133,10 +143,14 @@ public class ventana extends JFrame{
         btnadminClientes.addActionListener(administrarCliente);
         
         JButton btnadminProducto = new JButton("Administración de productos");
+        btnadminProducto.setBackground(new Color(230, 234, 196));
+        btnadminProducto.setFont(new Font("Century Gothic",Font.BOLD,12));
         btnadminProducto.setBounds(150, 80, 250, 25);
         panelControl.add(btnadminProducto);
         
         JButton btnReportes = new JButton("Reportes");
+        btnReportes.setBackground(new Color(230, 234, 196));
+        btnReportes.setFont(new Font("Century Gothic",Font.BOLD,12));
         btnReportes.setBounds(150, 150, 250, 25);
         panelControl.add(btnReportes);
     }
@@ -185,6 +199,8 @@ public class ventana extends JFrame{
      panelCrearUsuario.add(txtConfContra);
      
      JButton btnRegistrar = new JButton("Registrar");
+     btnRegistrar.setBackground(new Color(218, 234, 196));
+     btnRegistrar.setFont(new Font("Century Gothic",Font.BOLD,12));
      btnRegistrar.setBounds(130, 270, 200, 35);
      panelCrearUsuario.add(btnRegistrar);
      ActionListener registro = new ActionListener() {
@@ -209,6 +225,8 @@ public class ventana extends JFrame{
       btnRegistrar.addActionListener(registro);
       
        JButton btnVolver = new JButton("Volver al inicio");
+       btnVolver.setBackground(new Color(218, 234, 196));
+       btnVolver.setFont(new Font("Century Gothic",Font.BOLD,12));
        btnVolver .setBounds(130, 350, 200, 35);
        panelCrearUsuario.add(btnVolver);
        ActionListener volverInicio = new ActionListener() {
