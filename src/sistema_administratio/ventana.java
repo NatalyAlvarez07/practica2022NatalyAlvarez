@@ -18,6 +18,9 @@ public class ventana extends JFrame{
     JPanel panelControl = new JPanel();
     JPanel panelCrearUsuario = new JPanel();
     int control = 2;
+    cliente clientes[] = new cliente[100];
+    int controlCliente = 0;
+    JPanel panelControlClientes = new JPanel();
     
     //Método constructor
     public ventana(){
@@ -129,18 +132,15 @@ public class ventana extends JFrame{
         btnadminClientes.setFont(new Font("Century Gothic",Font.BOLD,12));
         btnadminClientes.setBounds(150, 10, 250, 25);
         panelControl.add(btnadminClientes);
-        ActionListener administrarCliente = new ActionListener(){
+        ActionListener administrarClientes = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                panelControlCli();
-                //visibilidad para evitar error futuro
+               panelControlCli();
+               panelControlClientes.setVisible(true);
             }
-
-            private void panelControlCli() {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
+            
         };
-        btnadminClientes.addActionListener(administrarCliente);
+        btnadminClientes.addActionListener(administrarClientes);
         
         JButton btnadminProducto = new JButton("Administración de productos");
         btnadminProducto.setBackground(new Color(230, 234, 196));
@@ -269,7 +269,14 @@ public class ventana extends JFrame{
          }
       
     }
-      
+     
+     public void panelControlCli(){
+     this.getContentPane().add(panelControlClientes);
+     panelControlClientes.setLayout(null);
+     this.setSize(750, 500);
+     this.setTitle("Administración de clientes");
+     panelControl.setVisible(false);        
+     }
 }
 
 
