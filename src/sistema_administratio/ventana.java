@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class ventana extends JFrame{
      usuario usuSistema[] = new usuario[10];
@@ -26,6 +27,7 @@ public class ventana extends JFrame{
     public ventana(){
        objetos();
        crearAdmin();
+       crearClientes();
 }
 
       public void crearAdmin(){
@@ -40,6 +42,20 @@ public class ventana extends JFrame{
         usuSistema[1].contra = "170";
        } 
 
+    public void crearClientes(){
+        clientes[0] =new cliente();
+        clientes[0].nombre = "cliente 1";
+        clientes[0].edad = 22;
+        clientes[0].genero = 'M';
+        clientes[0].nit = 150;
+        
+        clientes[1] =new cliente();
+        clientes[1].nombre = "cliente 2";
+        clientes[1].edad = 30;
+        clientes[1].genero = 'M';
+        clientes[1].nit = 300;
+    }
+      
     public void objetos(){
       
       this.getContentPane().add(panelInicioSesion);
@@ -275,7 +291,13 @@ public class ventana extends JFrame{
      panelControlClientes.setLayout(null);
      this.setSize(750, 500);
      this.setTitle("Administración de clientes");
-     panelControl.setVisible(false);        
+     panelControl.setVisible(false);
+     
+     DefaultTableModel datoTabla = new DefaultTableModel();
+     datoTabla.addColumn("Nombre");
+     datoTabla.addColumn("Edad");
+     datoTabla.addColumn("Género");
+     datoTabla.addColumn("Nit");
      }
 }
 
