@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -293,11 +295,28 @@ public class ventana extends JFrame{
      this.setTitle("Administración de clientes");
      panelControl.setVisible(false);
      
-     DefaultTableModel datoTabla = new DefaultTableModel();
-     datoTabla.addColumn("Nombre");
-     datoTabla.addColumn("Edad");
-     datoTabla.addColumn("Género");
-     datoTabla.addColumn("Nit");
+     DefaultTableModel datosTabla = new DefaultTableModel();
+     datosTabla.addColumn("Nombre");
+     datosTabla.addColumn("Edad");
+     datosTabla.addColumn("Género");
+     datosTabla.addColumn("Nit");
+     
+     
+             for(int i = 0; i<100; i++){
+              if(clientes[i] != null){
+                  String fila [] = {clientes[i].nombre, String.valueOf(clientes[i].edad), String.valueOf(clientes[i].genero), String.valueOf(clientes[i].nit)};
+                  datosTabla.addRow(fila);
+          }
+                                                  
+        }
+             
+     
+     
+     
+     JTable tablaClientes = new JTable(datosTabla);
+     JScrollPane barraTablaClientes = new JScrollPane(tablaClientes);
+     barraTablaClientes.setBounds(10, 10, 300, 300);
+     panelControlClientes.add(barraTablaClientes);
      }
 }
 
