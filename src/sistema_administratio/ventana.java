@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -327,9 +330,29 @@ public class ventana extends JFrame{
              JFileChooser ventanaSeleccion = new JFileChooser();
              ventanaSeleccion.showOpenDialog(null);
              ArchivoSeleccionado = ventanaSeleccion.getSelectedFile();
+             System.out.println("La ubicación del archivo es " + ArchivoSeleccionado.getPath());
+             leerArchivoCSV(ArchivoSeleccionado.getPath());
          }
      };
      btnCargarArchivo.addActionListener(buscarArchivo);
+     }
+     
+     public void leerArchivoCSV(String ruta){
+           try{
+            BufferedReader archivoTemporal = new BufferedReader(new FileReader(ruta));
+            String lineaLeida = "";
+            while (lineaLeida != null){
+                lineaLeida = archivoTemporal.readLine();
+                if(lineaLeida != null){
+                    System.out.print(lineaLeida);
+                }
+            }
+            
+        archivoTemporal.close();
+            
+           }catch(IOException error){
+               JOptionPane.showMessageDialog(null, "No se pudo abrir el archivo CSV");
+           }     
      }
 }
 
