@@ -354,25 +354,22 @@ public class ventana extends JFrame {
                                 break;
                             }
                         }
-                        //System.out.println("La posición libre es " + posicion);
                         clientes[posicion] = new cliente();
                         clientes[posicion].nombre= datosSeparados[0];
                         clientes[posicion].edad = Integer.parseInt(datosSeparados[1]);
                         clientes[posicion].genero = datosSeparados[2].charAt(0);
                         clientes[posicion].nit = Integer.parseInt(datosSeparados[3]);;
                         controlClientes++;
-                        JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente, total de usuarios " + controlClientes);
-
                     } else {
                         JOptionPane.showMessageDialog(null, "no se puede registrar más clientes");
                     }
                 }
             }
-
+            JOptionPane.showMessageDialog(null, "Clientes registrado exitosamente, total de clientes " + controlClientes);
             archivoTemporal.close();
 
         } catch (IOException error) {
-            JOptionPane.showMessageDialog(null, "No se pudo abrir el archivo CSV");
+            JOptionPane.showMessageDialog(null, "No puedo abrir el archivo CSV");
         }
     }
 }
