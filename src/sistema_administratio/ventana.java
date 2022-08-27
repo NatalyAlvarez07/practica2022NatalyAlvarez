@@ -343,11 +343,21 @@ public class ventana extends JFrame {
         //creación de gráfico de columnas
         //Rango 1 -> 18-30
         //Rango 2 -> 31-45
-        //Rango 3 -> 45 en adelante
+        //Rango 3 -> mayor a 45
         System.out.println("Total de 18 a 30 " + rango18a30());
         System.out.println("Total de 31 a 45 " + rango31a45());
         System.out.println("Total de 45 o más " + rango45mas());
                 
+        
+        DefaultCategoryDataset datos2 = new DefaultCategoryDataset();
+        datos2.addValue(rango18a30(), "18-30", "Edad");
+        datos2.addValue(rango31a45(), "31-45", "Edad");
+        datos2.addValue(rango45mas(), "Mayor a 45", "Edad");
+        JFreeChart graficoColumnas = ChartFactory.createBarChart("Rango de edades", "Edad", "Escala", datos2, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel panelColumnas = new ChartPanel(graficoColumnas);
+        panelColumnas.setBounds(500, 20, 300, 300);
+        
+        
         JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
         btnCargarArchivo.setBounds(350, 10, 200, 25);
         panelControlClientes.add(btnCargarArchivo);
@@ -420,7 +430,7 @@ public class ventana extends JFrame {
      int total = 0;
      for(int i = 0;i<100; i++){
        if(clientes[i] != null){
-            if(clientes[i].edad >= 45){
+            if(clientes[i].edad >45){
                total++;
              }
           }
