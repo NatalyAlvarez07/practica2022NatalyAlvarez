@@ -383,7 +383,7 @@ public class ventana extends JFrame {
         ActionListener crearHTML = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                System.out.println("SIII");
+                crearReporte();
             }
         };
         btnReporte.addActionListener(crearHTML);
@@ -391,14 +391,33 @@ public class ventana extends JFrame {
     
     public void crearReporte(){
     try{
-        PrintWriter escribir = new PrintWriter("reportes/ejemplo.txt","UTF-8");
-        escribir.println("Hola esto es una prueba");
-        escribir.println("Colegio");
-        escribir.println("5to Baco");
-        escribir.println("Progra");
-        escribir.println("Fin del archivo");
+        PrintWriter escribir = new PrintWriter("reportes/index.html","UTF-8");
+        escribir.println("<!DOCTYPE html>");
+        escribir.println("<html>");
+        escribir.println("<head>");
+        escribir.println("<title>Reporte del sistema</title>");
+        escribir.println("</head>");
+        escribir.println("<body>");
+        escribir.println("<h1>Listado de clientes en el sistema</h1>");
+        escribir.println("</body>");
+        escribir.println("</html>");
+        
+        escribir.println("<table border = 1>");
+        escribir.println("<tr>");
+        escribir.println("<td>NIT</td> <td>Nombre</td> <td>Edad</td> <td>Genero</td>");
+        escribir.println("</tr>");
+        
+        for(int i = 0; i<99; i++){
+          if(clientes[i] != null){
+             //escribir.println("<tr>");
+             //escribir.println("<td>" + clientes[i].nit + "</td><td>" + clientes[i].nombre + "</td><td>" + clientes[i].edad + "</td><td>" + clientes[i].genero"</td>");
+             //escribir.println("</tr>");
+          }
+        }
+        
+        
         escribir.close(); 
-        System.out.println("crear reporte");
+        JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta REPORTES");
       }catch(IOException error){
         JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
       }    
