@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -98,7 +99,7 @@ public class ventana extends JFrame {
         panelInicioSesion.add(txtContra);
 
         JButton btnIngresar = new JButton("Ingresar");
-        btnIngresar.setBackground(new Color(234, 223, 196));
+        btnIngresar.setBackground(new Color(212, 223, 186));
         btnIngresar.setFont(new Font("Century Gothic", Font.BOLD, 12));
         btnIngresar.setBounds(120, 145, 180, 35);
         panelInicioSesion.add(btnIngresar);
@@ -116,7 +117,7 @@ public class ventana extends JFrame {
         btnIngresar.addActionListener(ingresar);
 
         JButton btnCrearUsuario = new JButton("Registrarse");
-        btnCrearUsuario.setBackground(new Color(234, 223, 196));
+        btnCrearUsuario.setBackground(new Color(212, 223, 186));
         btnCrearUsuario.setFont(new Font("Century Gothic", Font.BOLD, 12));
         btnCrearUsuario.setBounds(120, 200, 180, 35);
         panelInicioSesion.add(btnCrearUsuario);
@@ -179,11 +180,6 @@ public class ventana extends JFrame {
         btnadminProducto.setBounds(150, 80, 250, 25);
         panelControl.add(btnadminProducto);
 
-        JButton btnReportes = new JButton("Reportes");
-        btnReportes.setBackground(new Color(230, 234, 196));
-        btnReportes.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        btnReportes.setBounds(150, 150, 250, 25);
-        panelControl.add(btnReportes);
     }
 
     public void crearUsuario() {
@@ -231,7 +227,7 @@ public class ventana extends JFrame {
         panelCrearUsuario.add(txtConfContra);
 
         JButton btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBackground(new Color(218, 234, 196));
+        btnRegistrar.setBackground(new Color(223, 234, 196));
         btnRegistrar.setFont(new Font("Century Gothic", Font.BOLD, 12));
         btnRegistrar.setBounds(130, 270, 200, 35);
         panelCrearUsuario.add(btnRegistrar);
@@ -344,9 +340,9 @@ public class ventana extends JFrame {
         //Rango 1 -> 18-30
         //Rango 2 -> 31-45
         //Rango 3 -> mayor a 45
-        System.out.println("Total de 18 a 30 " + rango18a30());
-        System.out.println("Total de 31 a 45 " + rango31a45());
-        System.out.println("Total de 45 o más " + rango45mas());
+        //System.out.println("Total de 18 a 30 " + rango18a30());
+        //System.out.println("Total de 31 a 45 " + rango31a45());
+        //System.out.println("Total de 45 o más " + rango45mas());
                 
         
         DefaultCategoryDataset datos2 = new DefaultCategoryDataset();
@@ -355,10 +351,12 @@ public class ventana extends JFrame {
         datos2.addValue(rango45mas(), "Mayor a 45", "Edad");
         JFreeChart graficoColumnas = ChartFactory.createBarChart("Rango de edades", "Edad", "Escala", datos2, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel panelColumnas = new ChartPanel(graficoColumnas);
-        panelColumnas.setBounds(500, 20, 300, 300);
-        
+        panelColumnas.setBounds(450, 120, 300, 300);
+        panelControlClientes.add(panelColumnas);
         
         JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
+        btnCargarArchivo.setBackground(new Color(227, 237, 204));
+        btnCargarArchivo.setFont(new Font("Century Gothic", Font.BOLD, 12));
         btnCargarArchivo.setBounds(350, 10, 200, 25);
         panelControlClientes.add(btnCargarArchivo);
         ActionListener buscarArchivo = new ActionListener() {
@@ -376,6 +374,34 @@ public class ventana extends JFrame {
             }
         };
         btnCargarArchivo.addActionListener(buscarArchivo);
+        
+        JButton btnReporte = new JButton("Crear reporte HTML");
+        btnReporte.setBackground(new Color(227, 237, 204 ));
+        btnReporte.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        btnReporte.setBounds(650, 10, 200, 25);
+        panelControlClientes.add(btnReporte);
+        ActionListener crearHTML = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                System.out.println("SIII");
+            }
+        };
+        btnReporte.addActionListener(crearHTML);
+    }
+    
+    public void crearReporte(){
+    try{
+        PrintWriter escribir = new PrintWriter("reportes/ejemplo.txt","UTF-8");
+        escribir.println("Hola esto es una prueba");
+        escribir.println("Colegio");
+        escribir.println("5to Baco");
+        escribir.println("Progra");
+        escribir.println("Fin del archivo");
+        escribir.close(); 
+        System.out.println("crear reporte");
+      }catch(IOException error){
+        JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
+      }    
     }
     
     public int totalhombres(){
