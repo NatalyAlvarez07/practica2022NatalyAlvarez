@@ -3,3 +3,4 @@ h1{  font-size: 60px; text-align: center; }
 table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}
 html{background-color: #E3EDCC ;}
 body{ width: 970px; margin: 0 auto; background-color: #C8D3AF; panding: 0 20px 20px 20px; border: 500px ;}
+h1{ margin: 0; padding: 20px; color: #545B46; text-shadown: 3px 3px 1px black; }

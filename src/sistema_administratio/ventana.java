@@ -34,9 +34,11 @@ public class ventana extends JFrame {
     JPanel panelCrearUsuario;
     int control = 2;
     cliente clientes[] = new cliente[100];
-    producto productos[] = new producto[100];
     int controlCliente = 0;
     JPanel panelControlClientes;
+    producto productos[] = new producto[100];
+    int controlProducto = 0;
+    JPanel panelControlProductos = new JPanel();
     int controlClientes = 2;
 
     //Método constructor
@@ -75,6 +77,7 @@ public class ventana extends JFrame {
 //Creacion de prodcutos
     public void crearProductos() {
         productos[0] = new producto();
+        
         
     } 
     
@@ -186,7 +189,15 @@ public class ventana extends JFrame {
         btnadminProducto.setFont(new Font("Century Gothic", Font.BOLD, 12));
         btnadminProducto.setBounds(150, 80, 250, 25);
         panelControl.add(btnadminProducto);
+        ActionListener administrarProductos = new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               panelControlPro();
+               panelControlProductos.setVisible(true);
+            }
 
+        };
+        btnadminProducto.addActionListener(administrarProductos);
     }
 
     public void crearUsuario() {
@@ -358,13 +369,14 @@ public class ventana extends JFrame {
         datos2.addValue(rango45mas(), "Mayor a 45", "Edad");
         JFreeChart graficoColumnas = ChartFactory.createBarChart("Rango de edades", "Edad", "Escala", datos2, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel panelColumnas = new ChartPanel(graficoColumnas);
-        panelColumnas.setBounds(450, 120, 300, 300);
+        panelColumnas.setBounds(350, 120, 300, 300);
         panelControlClientes.add(panelColumnas);
         
+         //Boton de archivo CSV
         JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
         btnCargarArchivo.setBackground(new Color(227, 237, 204));
         btnCargarArchivo.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        btnCargarArchivo.setBounds(350, 10, 200, 25);
+        btnCargarArchivo.setBounds(350, 15, 200, 25);
         panelControlClientes.add(btnCargarArchivo);
         ActionListener buscarArchivo = new ActionListener() {
             @Override
@@ -382,30 +394,67 @@ public class ventana extends JFrame {
         };
         btnCargarArchivo.addActionListener(buscarArchivo);
         
+        //Boton de reporte HTML
         JButton btnReporte = new JButton("Crear reporte HTML");
         btnReporte.setBackground(new Color(227, 237, 204 ));
         btnReporte.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        btnReporte.setBounds(650, 10, 200, 25);
+        btnReporte.setBounds(570, 15, 200, 25);
         panelControlClientes.add(btnReporte);
         ActionListener crearHTML = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 crearReporte();
+                
             }
         };
         btnReporte.addActionListener(crearHTML);
+        
+         //Boton para volver al menú
+        JButton btnVolver = new JButton("Volver al menú");
+        btnVolver.setBackground(new Color(227, 237, 204));
+        btnVolver.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        btnVolver.setBounds(450, 60, 200, 25);
+        panelControlClientes.add(btnVolver);
+        ActionListener volverInicio = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panelControl.setVisible(true);
+                panelControlClientes.setVisible(false);
+                volverInicio();
+            }
+        };
+        btnVolver.addActionListener(volverInicio);
+    }
+    
+    public void ordenarCli(){
+      cliente auxiliar;
+      for(int i=0; i<99; i++){
+          for(int j=0; j<99; j++){
+              if(clientes[j+1] == null){
+              break;
+              }else{
+                 if(clientes[j].edad> clientes[j+1].edad){
+                   auxiliar = clientes[j+1];
+                   clientes[j+1] = clientes[j]; 
+                   clientes[j] = auxiliar;
+                 }
+              }
+          }
+      }
+    
     }
     
     public void crearReporte(){
     try{ 
         //CSS
+        ordenarCli();
         PrintWriter escribirCSS = new PrintWriter("reportes/estilo.css","UTF-8");
         escribirCSS.println("html{  font-size: 20px; font-family: 'Consolas', sans-serif ;}");
         escribirCSS.println("h1{  font-size: 60px; text-align: center; }");
         escribirCSS.println("table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}");
         escribirCSS.println("html{background-color: #E3EDCC ;}");
         escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #C8D3AF; panding: 0 20px 20px 20px; border: 500px ;}");
-        escribirCSS.println("h1{ margin: 0; padding: 20px; color: #E3EDCC ; }");
+        escribirCSS.println("h1{ margin: 0; padding: 20px; color: #545B46; text-shadown: 3px 3px 1px black; }");
         escribirCSS.close();
         
         //HTML
@@ -540,5 +589,13 @@ public class ventana extends JFrame {
         } catch (IOException error) {
             JOptionPane.showMessageDialog(null, "No puedo abrir el archivo CSV");
         }
+    }
+    public void panelControlPro(){
+        panelCrearUsuario = new JPanel();
+        this.getContentPane().add(panelControlProductos);
+        panelControlProductos.setLayout(null);
+        this.setSize(750, 500);
+        this.setTitle("Administración de productos");
+        panelControl.setVisible(false);
     }
 }
