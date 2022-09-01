@@ -77,7 +77,7 @@ public class ventana extends JFrame {
 //Creacion de prodcutos
     public void crearProductos() {
         productos[0] = new producto();
-        
+        //productos[0]. = "producto 1";
         
     } 
     
@@ -590,6 +590,7 @@ public class ventana extends JFrame {
             JOptionPane.showMessageDialog(null, "No puedo abrir el archivo CSV");
         }
     }
+    //panel de producto
     public void panelControlPro(){
         panelCrearUsuario = new JPanel();
         this.getContentPane().add(panelControlProductos);
