@@ -34,6 +34,7 @@ public class ventana extends JFrame {
     JPanel panelCrearUsuario;
     int control = 2;
     cliente clientes[] = new cliente[100];
+    producto productos[] = new producto[100];
     int controlCliente = 0;
     JPanel panelControlClientes;
     int controlClientes = 2;
@@ -43,8 +44,9 @@ public class ventana extends JFrame {
         objetos();
         crearAdmin();
         crearClientes();
+        crearProductos();
     }
-
+ //Creacion del adiministrador
     public void crearAdmin() {
         usuSistema[0] = new usuario();
         usuSistema[0].nombreUsuario = "admin";
@@ -56,7 +58,7 @@ public class ventana extends JFrame {
         usuSistema[1].nombre = "Lian Aquilar";
         usuSistema[1].contra = "170";
     }
-
+//Creación de clientes
     public void crearClientes() {
         clientes[0] = new cliente();
         clientes[0].nombre = "cliente 1";
@@ -70,7 +72,12 @@ public class ventana extends JFrame {
         clientes[1].genero = 'F';
         clientes[1].nit = 300;
     }
-
+//Creacion de prodcutos
+    public void crearProductos() {
+        productos[0] = new producto();
+        
+    } 
+    
     public void objetos() {
         panelInicioSesion = new JPanel();
         this.getContentPane().add(panelInicioSesion);
@@ -390,15 +397,29 @@ public class ventana extends JFrame {
     }
     
     public void crearReporte(){
-    try{
+    try{ 
+        //CSS
+        PrintWriter escribirCSS = new PrintWriter("reportes/estilo.css","UTF-8");
+        escribirCSS.println("html{  font-size: 20px; font-family: 'Consolas', sans-serif ;}");
+        escribirCSS.println("h1{  font-size: 60px; text-align: center; }");
+        escribirCSS.println("table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}");
+        escribirCSS.println("html{background-color: #E3EDCC ;}");
+        escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #C8D3AF; panding: 0 20px 20px 20px; border: 500px ;}");
+        escribirCSS.println("h1{ margin: 0; padding: 20px; color: #E3EDCC ; }");
+        escribirCSS.close();
+        
+        //HTML
         PrintWriter escribir = new PrintWriter("reportes/index.html","UTF-8");
         escribir.println("<!DOCTYPE html>");
         escribir.println("<html>");
         escribir.println("<head>");
         escribir.println("<title>Reporte del sistema</title>");
+        escribir.println("<link rel=\"stylesheet\" href=\"estilo.css\">");
         escribir.println("</head>");
         escribir.println("<body>");
         escribir.println("<h1>Listado de clientes en el sistema</h1>");
+        
+        //Creación de la tabla
         escribir.println("<table border = 1>");
         escribir.println("<tr>");
         escribir.println("<td>NIT</td> <td>Nombre</td> <td>Edad</td> <td>Genero</td>");
@@ -413,9 +434,6 @@ public class ventana extends JFrame {
         
 
         escribir.println("</table");
-        
-        
-        
         escribir.println("</body>");
         escribir.println("</html>");
        
