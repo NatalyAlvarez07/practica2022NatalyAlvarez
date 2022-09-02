@@ -175,14 +175,14 @@ public class ventana extends JFrame {
         panelControl = new JPanel();
         this.getContentPane().add(panelControl);
         panelControl.setLayout(null);
-        this.setSize(600, 500);
+        this.setSize(500, 400);
         this.setTitle("Control Principal");
         panelInicioSesion.setVisible(false);
 
         JButton btnadminClientes = new JButton("Administración de clientes");
         btnadminClientes.setBackground(new Color(230, 234, 196));
         btnadminClientes.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        btnadminClientes.setBounds(150, 10, 250, 25);
+        btnadminClientes.setBounds(100, 10, 250, 25);
         panelControl.add(btnadminClientes);
         ActionListener administrarClientes = new ActionListener() {
             @Override
@@ -198,7 +198,7 @@ public class ventana extends JFrame {
         JButton btnadminProducto = new JButton("Administración de productos");
         btnadminProducto.setBackground(new Color(230, 234, 196));
         btnadminProducto.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        btnadminProducto.setBounds(150, 80, 250, 25);
+        btnadminProducto.setBounds(100, 80, 250, 25);
         panelControl.add(btnadminProducto);
         ActionListener administrarProductos = new ActionListener(){
             @Override
@@ -458,17 +458,17 @@ public class ventana extends JFrame {
         try {
             //CSS
             ordenarCli();
-            PrintWriter escribirCSS = new PrintWriter("reportes/estilo.css", "UTF-8");
+            PrintWriter escribirCSS = new PrintWriter("reporte_cliente/estilo.css", "UTF-8");
             escribirCSS.println("html{  font-size: 20px; font-family: 'Consolas', sans-serif ;}");
             escribirCSS.println("h1{  font-size: 60px; text-align: center; }");
             escribirCSS.println("table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}");
-            escribirCSS.println("html{background-color: #E3EDCC ;}");
-            escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #C8D3AF; panding: 0 20px 20px 20px; border: 500px ;}");
-            escribirCSS.println("h1{ margin: 0; padding: 20px; color: #545B46; text-shadown: 3px 3px 1px black; }");
+            escribirCSS.println("html{background-color: #C8D8BA ;}");
+            escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #B0C79D; panding: 0 20px 20px 20px; border: 500px ;}");
+            escribirCSS.println("h1{ margin: 0; padding: 20px; color: #6C8259; text-shadown: 3px 3px 1px black; }");
             escribirCSS.close();
 
             //HTML
-            PrintWriter escribir = new PrintWriter("reportes/index.html", "UTF-8");
+            PrintWriter escribir = new PrintWriter("reporte_cliente/index.html", "UTF-8");
             escribir.println("<!DOCTYPE html>");
             escribir.println("<html>");
             escribir.println("<head>");
@@ -591,19 +591,20 @@ public class ventana extends JFrame {
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Clientes registrado exitosamente, total de clientes " + controlClientes);
+            JOptionPane.showMessageDialog(null, "Clientes registrado exitosamente, total de clientes " + controlCliente);
             archivoTemporal.close();
 
         } catch (IOException error) {
             JOptionPane.showMessageDialog(null, "No puedo abrir el archivo CSV");
         }
-    }//DIVISION DE DATOS DE PRODUCTOS
+    }
+// -----------------------------------------------DIVISION DE DATOS DE PRODUCTOS--------------------------------------------------------------
         public void panelControlPro(){
         panelControlProductos = new JPanel();
         this.getContentPane().add(panelControlProductos);
         panelControlProductos.setLayout(null);
         this.setSize(600, 500);
-        this.setTitle("Administración de clientes");
+        this.setTitle("Administración de productos");
         panelControl.setVisible(false);
 
         
@@ -672,7 +673,7 @@ public class ventana extends JFrame {
         ActionListener crearHTML = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                crearReporte();
+                crearReporte2();
 
             }
         };
@@ -719,17 +720,17 @@ public class ventana extends JFrame {
         try {
             //CSS
             ordenarPro();
-            PrintWriter escribirCSS = new PrintWriter("reportes/estilo.css", "UTF-8");
+            PrintWriter escribirCSS = new PrintWriter("reporte_producto/estilo.css", "UTF-8");
             escribirCSS.println("html{  font-size: 20px; font-family: 'Consolas', sans-serif ;}");
             escribirCSS.println("h1{  font-size: 60px; text-align: center; }");
             escribirCSS.println("table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}");
-            escribirCSS.println("html{background-color: #C2D798 ;}");
-            escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #D5EAAA; panding: 0 20px 20px 20px; border: 500px ;}");
-            escribirCSS.println("h1{ margin: 0; padding: 20px; color: #92A46E; text-shadown: 3px 3px 1px black; }");
+            escribirCSS.println("html{background-color: #D2E2C5;}"); 
+            escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #B4D598; panding: 0 20px 20px 20px; border: 500px ;}");
+            escribirCSS.println("h1{ margin: 0; padding: 20px; color: #354726; text-shadown: 3px 3px 1px black; }");
             escribirCSS.close();
 
             //HTML
-            PrintWriter escribir = new PrintWriter("reportes/index.html", "UTF-8");
+            PrintWriter escribir = new PrintWriter("reporte_producto/index.html", "UTF-8");
             escribir.println("<!DOCTYPE html>");
             escribir.println("<html>");
             escribir.println("<head>");
@@ -785,11 +786,11 @@ public class ventana extends JFrame {
                         productos[posicion].Cantidad = Integer.parseInt(datosSeparados[2]);
                         controlProducto++;
                     } else {
-                        JOptionPane.showMessageDialog(null, "no se puede registrar más clientes");
+                        JOptionPane.showMessageDialog(null, "no se puede registrar más productos");
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Clientes registrado exitosamente, total de clientes " + controlClientes);
+            JOptionPane.showMessageDialog(null, "Productos registrado exitosamente, total de productos " + controlProducto);
             archivoTemporal.close();
 
         } catch (IOException error) {
