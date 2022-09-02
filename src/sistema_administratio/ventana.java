@@ -38,8 +38,9 @@ public class ventana extends JFrame {
     JPanel panelControlClientes;
     producto productos[] = new producto[100];
     int controlProducto = 0;
-    JPanel panelControlProductos = new JPanel();
+    JPanel panelControlProductos;
     int controlClientes = 2;
+    int controlProductos = 2;
 
     //Método constructor
     public ventana() {
@@ -48,7 +49,8 @@ public class ventana extends JFrame {
         crearClientes();
         crearProductos();
     }
- //Creacion del adiministrador
+    //Creacion del adiministrador
+
     public void crearAdmin() {
         usuSistema[0] = new usuario();
         usuSistema[0].nombreUsuario = "nataly";
@@ -61,6 +63,7 @@ public class ventana extends JFrame {
         usuSistema[1].contra = "170";
     }
 //Creación de clientes
+
     public void crearClientes() {
         clientes[0] = new cliente();
         clientes[0].nombre = "cliente 1";
@@ -75,18 +78,19 @@ public class ventana extends JFrame {
         clientes[1].nit = 300;
     }
 //Creacion de prodcutos
+
     public void crearProductos() {
         productos[0] = new producto();
         productos[0].Nombre = "Productos 1";
         productos[0].Precio = 230;
         productos[0].Cantidad = 12;
-        
+
         productos[1] = new producto();
         productos[1].Nombre = "Productos 2";
         productos[1].Precio = 450;
         productos[1].Cantidad = 20;
-    } 
-    
+    }
+
     public void objetos() {
         panelInicioSesion = new JPanel();
         this.getContentPane().add(panelInicioSesion);
@@ -189,6 +193,7 @@ public class ventana extends JFrame {
 
         };
         btnadminClientes.addActionListener(administrarClientes);
+        
 
         JButton btnadminProducto = new JButton("Administración de productos");
         btnadminProducto.setBackground(new Color(230, 234, 196));
@@ -198,14 +203,15 @@ public class ventana extends JFrame {
         ActionListener administrarProductos = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-               panelControlPro();
-               panelControlProductos.setVisible(true);
+                panelControlPro();
+                panelControlProductos.setVisible(true);
             }
 
         };
         btnadminProducto.addActionListener(administrarProductos);
+                
+        
     }
-
     public void crearUsuario() {
         panelCrearUsuario = new JPanel();
         this.getContentPane().add(panelCrearUsuario);
@@ -328,8 +334,7 @@ public class ventana extends JFrame {
         this.setSize(950, 500);
         this.setTitle("Administración de clientes");
         panelControl.setVisible(false);
-        
-        
+
         //creación de la trabla clientes
         DefaultTableModel datosTabla = new DefaultTableModel();
         datosTabla.addColumn("Nombre");
@@ -349,17 +354,17 @@ public class ventana extends JFrame {
         JScrollPane barraTablaClientes = new JScrollPane(tablaClientes);
         barraTablaClientes.setBounds(10, 10, 300, 100);
         panelControlClientes.add(barraTablaClientes);
-        
+
         //creación de gráfico circular
         DefaultPieDataset datos = new DefaultPieDataset();
         datos.setValue("Masculino", totalhombres());
         datos.setValue("Femenino", totalmujeres());
-        
+
         JFreeChart graficoCircular = ChartFactory.createPieChart("Generos en el sistema", datos);
         ChartPanel panelCircular = new ChartPanel(graficoCircular);
         panelCircular.setBounds(10, 120, 300, 300);
         panelControlClientes.add(panelCircular);
-        
+
         //creación de gráfico de columnas de clientes
         //Rango 1 -> 18-30
         //Rango 2 -> 31-45
@@ -367,8 +372,6 @@ public class ventana extends JFrame {
         //System.out.println("Total de 18 a 30 " + rango18a30());
         //System.out.println("Total de 31 a 45 " + rango31a45());
         //System.out.println("Total de 45 o más " + rango45mas());
-                
-        
         DefaultCategoryDataset datos2 = new DefaultCategoryDataset();
         datos2.addValue(rango18a30(), "18-30", "Edad");
         datos2.addValue(rango31a45(), "31-45", "Edad");
@@ -378,31 +381,32 @@ public class ventana extends JFrame {
         panelColumnas.setBounds(350, 120, 300, 300);
         panelControlClientes.add(panelColumnas);
         
-         //Boton de archivo CSV
+        //Cargar el archivo para que se visualice en la tabla
         JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
         btnCargarArchivo.setBackground(new Color(227, 237, 204));
         btnCargarArchivo.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        btnCargarArchivo.setBounds(350, 15, 200, 25);
+        btnCargarArchivo.setBounds(350, 10, 200, 25);
         panelControlClientes.add(btnCargarArchivo);
-        ActionListener buscarArchivo = new ActionListener() {
+        ActionListener BuscarArchivo = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae) {
-                File ArchivoSeleccionado;
+                File archivoSeleccionado;
                 JFileChooser ventanaSeleccion = new JFileChooser();
                 ventanaSeleccion.showOpenDialog(null);
-                ArchivoSeleccionado = ventanaSeleccion.getSelectedFile();
-                System.out.println("La ubicación del archivo es " + ArchivoSeleccionado.getPath());
-                leerArchivoCSV(ArchivoSeleccionado.getPath());
+                archivoSeleccionado = ventanaSeleccion.getSelectedFile();
+                System.out.println("La ubicación del archivo es " + archivoSeleccionado.getPath());
+                leerArchivoCSV(archivoSeleccionado.getPath());
                 panelControlClientes.setVisible(false);
                 panelControlCli();
-                
+
             }
         };
-        btnCargarArchivo.addActionListener(buscarArchivo);
+        btnCargarArchivo.addActionListener(BuscarArchivo);
         
-        //Boton de reporte HTML
+                      
+        //Boton de reporte HTML Clientes
         JButton btnReporte = new JButton("Crear reporte HTML");
-        btnReporte.setBackground(new Color(227, 237, 204 ));
+        btnReporte.setBackground(new Color(227, 237, 204));
         btnReporte.setFont(new Font("Century Gothic", Font.BOLD, 12));
         btnReporte.setBounds(570, 15, 200, 25);
         panelControlClientes.add(btnReporte);
@@ -410,12 +414,12 @@ public class ventana extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 crearReporte();
-                
+
             }
         };
         btnReporte.addActionListener(crearHTML);
-        
-         //Boton para volver al menú
+
+        //Boton para volver al menú clientes
         JButton btnVolver = new JButton("Volver al menú");
         btnVolver.setBackground(new Color(227, 237, 204));
         btnVolver.setFont(new Font("Century Gothic", Font.BOLD, 12));
@@ -431,135 +435,134 @@ public class ventana extends JFrame {
         };
         btnVolver.addActionListener(volverInicio);
     }
-    
-    public void ordenarCli(){
-      cliente auxiliar;
-      for(int i=0; i<99; i++){
-          for(int j=0; j<99; j++){
-              if(clientes[j+1] == null){
-              break;
-              }else{
-                 if(clientes[j].edad> clientes[j+1].edad){
-                   auxiliar = clientes[j+1];
-                   clientes[j+1] = clientes[j]; 
-                   clientes[j] = auxiliar;
-                 }
-              }
-          }
-      }
-    
-    }
-    
-    public void crearReporte(){
-    try{ 
-        //CSS
-        ordenarCli();
-        PrintWriter escribirCSS = new PrintWriter("reportes/estilo.css","UTF-8");
-        escribirCSS.println("html{  font-size: 20px; font-family: 'Consolas', sans-serif ;}");
-        escribirCSS.println("h1{  font-size: 60px; text-align: center; }");
-        escribirCSS.println("table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}");
-        escribirCSS.println("html{background-color: #E3EDCC ;}");
-        escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #C8D3AF; panding: 0 20px 20px 20px; border: 500px ;}");
-        escribirCSS.println("h1{ margin: 0; padding: 20px; color: #545B46; text-shadown: 3px 3px 1px black; }");
-        escribirCSS.close();
-        
-        //HTML
-        PrintWriter escribir = new PrintWriter("reportes/index.html","UTF-8");
-        escribir.println("<!DOCTYPE html>");
-        escribir.println("<html>");
-        escribir.println("<head>");
-        escribir.println("<title>Reporte del sistema</title>");
-        escribir.println("<link rel=\"stylesheet\" href=\"estilo.css\">");
-        escribir.println("</head>");
-        escribir.println("<body>");
-        escribir.println("<h1>Listado de clientes en el sistema</h1>");
-        
-        //Creación de la tabla
-        escribir.println("<table border = 1>");
-        escribir.println("<tr>");
-        escribir.println("<td>NIT</td> <td>Nombre</td> <td>Edad</td> <td>Genero</td>");
-        escribir.println("</tr>");
-                for(int i = 0; i<99; i++){
-          if(clientes[i] != null){
-             escribir.println("<tr>");
-             escribir.println("<td>" + clientes[i].nit + "</td><td>" + clientes[i].nombre + "</td><td>" + clientes[i].edad + "</td><td>" + clientes[i].genero + "</td>");
-             escribir.println("</tr>");
-          }
+//ORDEN DE LA EDAD DE MANERA ACENDENTE CLIENTES
+    public void ordenarCli() {
+        cliente auxiliar;
+        for (int i = 0; i < 99; i++) {
+            for (int j = 0; j < 99; j++) {
+                if (clientes[j + 1] == null) {
+                    break;
+                } else {
+                    if (clientes[j].edad > clientes[j + 1].edad) {
+                        auxiliar = clientes[j + 1];
+                        clientes[j + 1] = clientes[j];
+                        clientes[j] = auxiliar;
+                    }
+                }
+            }
         }
-        
 
-        escribir.println("</table");
-        escribir.println("</body>");
-        escribir.println("</html>");
-       
-        
-        escribir.close(); 
-        JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta REPORTES");
-      }catch(IOException error){
-        JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
-      }    
-    }
-    
-    public int totalhombres(){
-     int total = 0;
-     for(int i = 0;i<100; i++){
-       if(clientes[i] != null){
-            if(clientes[i].genero == 'M'){
-               total++;
-             }
-          }
-       }  
-        return total;
     }
 
-    public int totalmujeres(){
-     int total = 0;
-     for(int i = 0;i<100; i++){
-       if(clientes[i] != null){
-            if(clientes[i].genero == 'F'){
-               total++;
-             }
-          }
-       }  
+    public void crearReporte() {
+        try {
+            //CSS
+            ordenarCli();
+            PrintWriter escribirCSS = new PrintWriter("reportes/estilo.css", "UTF-8");
+            escribirCSS.println("html{  font-size: 20px; font-family: 'Consolas', sans-serif ;}");
+            escribirCSS.println("h1{  font-size: 60px; text-align: center; }");
+            escribirCSS.println("table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}");
+            escribirCSS.println("html{background-color: #E3EDCC ;}");
+            escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #C8D3AF; panding: 0 20px 20px 20px; border: 500px ;}");
+            escribirCSS.println("h1{ margin: 0; padding: 20px; color: #545B46; text-shadown: 3px 3px 1px black; }");
+            escribirCSS.close();
+
+            //HTML
+            PrintWriter escribir = new PrintWriter("reportes/index.html", "UTF-8");
+            escribir.println("<!DOCTYPE html>");
+            escribir.println("<html>");
+            escribir.println("<head>");
+            escribir.println("<title>Reporte del sistema</title>");
+            escribir.println("<link rel=\"stylesheet\" href=\"estilo.css\">");
+            escribir.println("</head>");
+            escribir.println("<body>");
+            escribir.println("<h1>Listado de clientes en el sistema</h1>");
+
+            //Creación de la tabla
+            escribir.println("<table border = 1>");
+            escribir.println("<tr>");
+            escribir.println("<td>NIT</td> <td>Nombre</td> <td>Edad</td> <td>Genero</td>");
+            escribir.println("</tr>");
+            for (int i = 0; i < 99; i++) {
+                if (clientes[i] != null) {
+                    escribir.println("<tr>");
+                    escribir.println("<td>" + clientes[i].nit + "</td><td>" + clientes[i].nombre + "</td><td>" + clientes[i].edad + "</td><td>" + clientes[i].genero + "</td>");
+                    escribir.println("</tr>");
+                }
+            }
+
+            escribir.println("</table");
+            escribir.println("</body>");
+            escribir.println("</html>");
+
+            escribir.close();
+            JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta REPORTES");
+        } catch (IOException error) {
+            JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
+        }
+    }
+
+    public int totalhombres() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (clientes[i] != null) {
+                if (clientes[i].genero == 'M') {
+                    total++;
+                }
+            }
+        }
         return total;
     }
-    
-    public int rango18a30(){
-     int total = 0;
-     for(int i = 0;i<100; i++){
-       if(clientes[i] != null){
-            if(clientes[i].edad >= 18 && clientes[i].edad <=30){
-               total++;
-             }
-          }
-       }  
+
+    public int totalmujeres() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (clientes[i] != null) {
+                if (clientes[i].genero == 'F') {
+                    total++;
+                }
+            }
+        }
         return total;
     }
-    
-        public int rango31a45(){
-     int total = 0;
-     for(int i = 0;i<100; i++){
-       if(clientes[i] != null){
-            if(clientes[i].edad >= 31 && clientes[i].edad <=45){
-               total++;
-             }
-          }
-       }  
+
+    public int rango18a30() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (clientes[i] != null) {
+                if (clientes[i].edad >= 18 && clientes[i].edad <= 30) {
+                    total++;
+                }
+            }
+        }
         return total;
     }
-        
-        public int rango45mas(){
-     int total = 0;
-     for(int i = 0;i<100; i++){
-       if(clientes[i] != null){
-            if(clientes[i].edad >45){
-               total++;
-             }
-          }
-       }  
+
+    public int rango31a45() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (clientes[i] != null) {
+                if (clientes[i].edad >= 31 && clientes[i].edad <= 45) {
+                    total++;
+                }
+            }
+        }
         return total;
     }
-           
+
+    public int rango45mas() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (clientes[i] != null) {
+                if (clientes[i].edad > 45) {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+
+//LECTURA DEL ARCHIVO CSS CLIENTES
     public void leerArchivoCSV(String ruta) {
         try {
             BufferedReader archivoTemporal = new BufferedReader(new FileReader(ruta));
@@ -568,8 +571,206 @@ public class ventana extends JFrame {
                 lineaLeida = archivoTemporal.readLine();
                 if (lineaLeida != null) {
                     String datosSeparados[] = lineaLeida.split(",");
-                    
-                    
+
+                    int posicion = 0;
+                    if (controlCliente < 100) {
+                        for (int i = 0; i < 99; i++) {
+                            if (clientes[i] == null) {
+                                posicion = i;
+                                break;
+                            }
+                        }
+                        clientes[posicion] = new cliente();
+                        clientes[posicion].nombre = datosSeparados[0];
+                        clientes[posicion].edad = Integer.parseInt(datosSeparados[1]);
+                        clientes[posicion].genero = datosSeparados[2].charAt(0);
+                        clientes[posicion].nit = Integer.parseInt(datosSeparados[3]);
+                        controlCliente++;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "no se puede registrar más clientes");
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Clientes registrado exitosamente, total de clientes " + controlClientes);
+            archivoTemporal.close();
+
+        } catch (IOException error) {
+            JOptionPane.showMessageDialog(null, "No puedo abrir el archivo CSV");
+        }
+    }//DIVISION DE DATOS DE PRODUCTOS
+        public void panelControlPro(){
+        panelControlProductos = new JPanel();
+        this.getContentPane().add(panelControlProductos);
+        panelControlProductos.setLayout(null);
+        this.setSize(600, 500);
+        this.setTitle("Administración de clientes");
+        panelControl.setVisible(false);
+
+        
+        //creación de la trabla productos
+        DefaultTableModel datosTabla = new DefaultTableModel();
+        datosTabla.addColumn("Nombre");
+        datosTabla.addColumn("Precio");
+        datosTabla.addColumn("Cantidad");
+
+        //tabal de productos
+        JTable tablaProductos = new JTable(datosTabla);
+        JScrollPane barraTablaProductos = new JScrollPane(tablaProductos);
+        barraTablaProductos.setBounds(10, 10, 300, 100);
+        panelControlProductos.add(barraTablaProductos);
+        
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                String fila[] = {productos[i].Nombre, String.valueOf(productos[i].Precio), String.valueOf(productos[i].Cantidad)};
+                datosTabla.addRow(fila);
+            }
+        //creación de gráfico de columnas de clientes
+        //Rango 1 -> 100-200
+        //Rango 2 -> 201-300
+        //Rango 3 -> mayor a 301
+        //System.out.println("Total de 18 a 30 " + rango100a200);
+        //System.out.println("Total de 31 a 45 " + rango201a300());
+        //System.out.println("Total de 45 o más " + rango301mas());
+        DefaultCategoryDataset datos2 = new DefaultCategoryDataset();
+        datos2.addValue(rango100a200(), "100-200", "Precio");
+        datos2.addValue(rango201a300(), "201-300", "Precio");
+        datos2.addValue(rango301mas(), "mayor a 301", "Precio");
+        JFreeChart graficoColumnas = ChartFactory.createBarChart("Rango de precios", "Precio", "Escala", datos2, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel panelColumnas = new ChartPanel(graficoColumnas);
+        panelColumnas.setBounds(15, 120, 300, 300);
+        panelControlProductos.add(panelColumnas);
+        
+        
+        // BOTON DE VISUALIZACION DEL CSV PRODUCTOS
+        JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
+        btnCargarArchivo.setBackground(new Color(227, 237, 204));
+        btnCargarArchivo.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        btnCargarArchivo.setBounds(350, 10, 200, 25);
+        panelControlProductos.add(btnCargarArchivo);
+        ActionListener BuscarArchivo = new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                File archivoSeleccionado;
+                JFileChooser ventanaSeleccion = new JFileChooser();
+                ventanaSeleccion.showOpenDialog(null);
+                archivoSeleccionado = ventanaSeleccion.getSelectedFile();
+                System.out.println("La ubicación del archivo es " + archivoSeleccionado.getPath());
+                leerArchivoCSV2(archivoSeleccionado.getPath());
+                panelControlProductos.setVisible(false);
+                panelControlPro();
+
+            }
+        };
+        btnCargarArchivo.addActionListener(BuscarArchivo);
+        
+         //Boton de reporte HTML Productos
+        JButton btnReporte = new JButton("Crear reporte HTML");
+        btnReporte.setBackground(new Color(227, 237, 204));
+        btnReporte.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        btnReporte.setBounds(350, 50, 200, 25);
+        panelControlProductos.add(btnReporte);
+        ActionListener crearHTML = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                crearReporte();
+
+            }
+        };
+        btnReporte.addActionListener(crearHTML);
+
+        //Boton para volver al menú 
+        JButton btnVolver = new JButton("Volver al menú");
+        btnVolver.setBackground(new Color(227, 237, 204));
+        btnVolver.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        btnVolver.setBounds(350, 100, 200, 25);
+        panelControlProductos.add(btnVolver);
+        ActionListener volverInicio = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                panelControl.setVisible(true);
+                panelControlProductos.setVisible(false);
+                volverInicio();
+            }
+        };
+        btnVolver.addActionListener(volverInicio);
+        }
+     
+   }
+//ORDEN EL PRECIO DE PRODUCTOS
+    public void ordenarPro() {
+        producto auxiliar;
+        for (int i = 0; i < 99; i++) {
+            for (int j = 0; j < 99; j++) {
+                if (productos[j + 1] == null) {
+                    break;
+                } else {
+                    if (productos[j].Precio > productos[j + 1].Precio) {
+                        auxiliar = productos[j + 1];
+                        productos[j + 1] = productos[j];
+                        productos[j] = auxiliar;
+                    }
+                }
+            
+            }
+        }
+    } 
+   //CREACION DE REPORTE PRODUCTOS
+        public void crearReporte2() {
+        try {
+            //CSS
+            ordenarPro();
+            PrintWriter escribirCSS = new PrintWriter("reportes/estilo.css", "UTF-8");
+            escribirCSS.println("html{  font-size: 20px; font-family: 'Consolas', sans-serif ;}");
+            escribirCSS.println("h1{  font-size: 60px; text-align: center; }");
+            escribirCSS.println("table{table-layout: fixed; width: 500px;} td{border-collapse: collapse center;}");
+            escribirCSS.println("html{background-color: #C2D798 ;}");
+            escribirCSS.println("body{ width: 970px; margin: 0 auto; background-color: #D5EAAA; panding: 0 20px 20px 20px; border: 500px ;}");
+            escribirCSS.println("h1{ margin: 0; padding: 20px; color: #92A46E; text-shadown: 3px 3px 1px black; }");
+            escribirCSS.close();
+
+            //HTML
+            PrintWriter escribir = new PrintWriter("reportes/index.html", "UTF-8");
+            escribir.println("<!DOCTYPE html>");
+            escribir.println("<html>");
+            escribir.println("<head>");
+            escribir.println("<title>Reporte del sistema</title>");
+            escribir.println("<link rel=\"stylesheet\" href=\"estilo.css\">");
+            escribir.println("</head>");
+            escribir.println("<body>");
+            escribir.println("<h1>Listado de productos en el sistema</h1>");
+
+            //Creación de la tabla
+            escribir.println("<table border = 1>");
+            escribir.println("<tr>");
+            escribir.println(" <td>Nombre</td> <td>Precio</td> <td>Cantidad</td>");
+            escribir.println("</tr>");
+            for (int i = 0; i < 99; i++) {
+                if (productos[i] != null) {
+                    escribir.println("<tr>");
+                    escribir.println("<td>" + productos[i].Nombre + "</td><td>" + productos[i].Precio + "</td><td>"  + productos[i].Cantidad + "</td>");
+                    escribir.println("</tr>");
+                }
+            }
+
+            escribir.println("</table");
+            escribir.println("</body>");
+            escribir.println("</html>");
+
+            escribir.close();
+            JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta REPORTES");
+        } catch (IOException error) {
+            JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
+        }        
+    } 
+        public void leerArchivoCSV2(String ruta) {
+        try {
+            BufferedReader archivoTemporal = new BufferedReader(new FileReader(ruta));
+            String lineaLeida = "";
+            while (lineaLeida != null) {
+                lineaLeida = archivoTemporal.readLine();
+                if (lineaLeida != null) {
+                    String datosSeparados[] = lineaLeida.split(",");
+
                     int posicion = 0;
                     if (controlProducto < 100) {
                         for (int i = 0; i < 99; i++) {
@@ -588,79 +789,47 @@ public class ventana extends JFrame {
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Productos registrado exitosamente, total de productos " + controlProducto);
+            JOptionPane.showMessageDialog(null, "Clientes registrado exitosamente, total de clientes " + controlClientes);
             archivoTemporal.close();
 
         } catch (IOException error) {
             JOptionPane.showMessageDialog(null, "No puedo abrir el archivo CSV");
-        }
-    }
-    //panel de producto
-    public void panelControlPro(){
-        panelCrearUsuario = new JPanel();
-        this.getContentPane().add(panelControlProductos);
-        panelControlProductos.setLayout(null);
-        this.setSize(750, 500);
-        this.setTitle("Administración de productos");
-        panelControl.setVisible(false);
-        
-        //Tabla de productos
-        DefaultTableModel datosTabla = new DefaultTableModel();
-        datosTabla.addColumn("Nombre");
-        datosTabla.addColumn("Precio");
-        datosTabla.addColumn("Cantidad");
-        
-
+        }    
+    } 
+    //RANGO DE PRECIO PRODUCTOS
+        public int rango100a200(){
+      int total = 0;
         for (int i = 0; i < 100; i++) {
             if (productos[i] != null) {
-                String fila[] = {productos[i].Nombre, String.valueOf(productos[i].Precio), String.valueOf(productos[i].Cantidad)};
-                datosTabla.addRow(fila);
+                if (productos[i].Precio >= 100 && productos[i].Precio <= 200) {
+                    total++;
+                }
             }
-
         }
-
-        JTable tablaProductos = new JTable(datosTabla);
-        JScrollPane barraTablaProductos = new JScrollPane(tablaProductos);
-        barraTablaProductos.setBounds(10, 10, 300, 100);
-        panelControlProductos.add(barraTablaProductos);
-        
-        
-        //Boton de archivo CSV productos
-        JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
-        btnCargarArchivo.setBackground(new Color(227, 237, 204));
-        btnCargarArchivo.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        btnCargarArchivo.setBounds(350, 15, 200, 25);
-        panelControlProductos.add(btnCargarArchivo);
-        ActionListener buscarArchivo = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                File ArchivoSeleccionado;
-                JFileChooser ventanaSeleccion = new JFileChooser();
-                ventanaSeleccion.showOpenDialog(null);
-                ArchivoSeleccionado = ventanaSeleccion.getSelectedFile();
-                System.out.println("La ubicación del archivo es " + ArchivoSeleccionado.getPath());
-                leerArchivoCSV(ArchivoSeleccionado.getPath());
-                
-            }
-        };
-        btnCargarArchivo.addActionListener(buscarArchivo);
-        
-    }
-
-    public void leerArchivoCSV2(String ruta){
-     try{
-         BufferedReader archivoTemporal = new BufferedReader(new FileReader(ruta));
-         String lineaLeida = "";
-         while (lineaLeida != null){                
-             lineaLeida = archivoTemporal.readLine();
-             if(lineaLeida != null){
-               System.out.println(lineaLeida);
-             }
-         }
-         archivoTemporal.close();
-      }catch(IOException error){
-         JOptionPane.showMessageDialog(null, "No se pudo abrir el archivo CSV");
-      }
+        return total;
     }
     
+    public int rango201a300(){
+      int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                if (productos[i].Precio >= 200 && productos[i].Precio <= 300) {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
+
+    public int rango301mas() {
+        int total = 0;
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                if (productos[i].Precio > 301) {
+                    total++;
+                }
+            }
+        }
+        return total;
+    }
 }
