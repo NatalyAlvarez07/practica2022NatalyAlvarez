@@ -51,7 +51,7 @@ public class ventana extends JFrame {
  //Creacion del adiministrador
     public void crearAdmin() {
         usuSistema[0] = new usuario();
-        usuSistema[0].nombreUsuario = "admin";
+        usuSistema[0].nombreUsuario = "nataly";
         usuSistema[0].nombre = "administrador";
         usuSistema[0].contra = "123";
         //Usuario de prueba
@@ -77,8 +77,14 @@ public class ventana extends JFrame {
 //Creacion de prodcutos
     public void crearProductos() {
         productos[0] = new producto();
-        //productos[0]. = "producto 1";
+        productos[0].Nombre = "Productos 1";
+        productos[0].Precio = 230;
+        productos[0].Cantidad = 12;
         
+        productos[1] = new producto();
+        productos[1].Nombre = "Productos 2";
+        productos[1].Precio = 450;
+        productos[1].Cantidad = 20;
     } 
     
     public void objetos() {
@@ -324,7 +330,7 @@ public class ventana extends JFrame {
         panelControl.setVisible(false);
         
         
-        //creación de la trabla
+        //creación de la trabla clientes
         DefaultTableModel datosTabla = new DefaultTableModel();
         datosTabla.addColumn("Nombre");
         datosTabla.addColumn("Edad");
@@ -354,7 +360,7 @@ public class ventana extends JFrame {
         panelCircular.setBounds(10, 120, 300, 300);
         panelControlClientes.add(panelCircular);
         
-        //creación de gráfico de columnas
+        //creación de gráfico de columnas de clientes
         //Rango 1 -> 18-30
         //Rango 2 -> 31-45
         //Rango 3 -> mayor a 45
@@ -565,25 +571,24 @@ public class ventana extends JFrame {
                     
                     
                     int posicion = 0;
-                    if (controlClientes < 100) {
+                    if (controlProducto < 100) {
                         for (int i = 0; i < 99; i++) {
-                            if (clientes[i] == null) {
+                            if (productos[i] == null) {
                                 posicion = i;
                                 break;
                             }
                         }
-                        clientes[posicion] = new cliente();
-                        clientes[posicion].nombre= datosSeparados[0];
-                        clientes[posicion].edad = Integer.parseInt(datosSeparados[1]);
-                        clientes[posicion].genero = datosSeparados[2].charAt(0);
-                        clientes[posicion].nit = Integer.parseInt(datosSeparados[3]);;
-                        controlClientes++;
+                        productos[posicion] = new producto();
+                        productos[posicion].Nombre= datosSeparados[0];
+                        productos[posicion].Precio = Float.parseFloat(datosSeparados[1]);
+                        productos[posicion].Cantidad = Integer.parseInt(datosSeparados[2]);
+                        controlProducto++;
                     } else {
                         JOptionPane.showMessageDialog(null, "no se puede registrar más clientes");
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Clientes registrado exitosamente, total de clientes " + controlClientes);
+            JOptionPane.showMessageDialog(null, "Productos registrado exitosamente, total de productos " + controlProducto);
             archivoTemporal.close();
 
         } catch (IOException error) {
@@ -598,5 +603,64 @@ public class ventana extends JFrame {
         this.setSize(750, 500);
         this.setTitle("Administración de productos");
         panelControl.setVisible(false);
+        
+        //Tabla de productos
+        DefaultTableModel datosTabla = new DefaultTableModel();
+        datosTabla.addColumn("Nombre");
+        datosTabla.addColumn("Precio");
+        datosTabla.addColumn("Cantidad");
+        
+
+        for (int i = 0; i < 100; i++) {
+            if (productos[i] != null) {
+                String fila[] = {productos[i].Nombre, String.valueOf(productos[i].Precio), String.valueOf(productos[i].Cantidad)};
+                datosTabla.addRow(fila);
+            }
+
+        }
+
+        JTable tablaProductos = new JTable(datosTabla);
+        JScrollPane barraTablaProductos = new JScrollPane(tablaProductos);
+        barraTablaProductos.setBounds(10, 10, 300, 100);
+        panelControlProductos.add(barraTablaProductos);
+        
+        
+        //Boton de archivo CSV productos
+        JButton btnCargarArchivo = new JButton("Buscar archivo CSV");
+        btnCargarArchivo.setBackground(new Color(227, 237, 204));
+        btnCargarArchivo.setFont(new Font("Century Gothic", Font.BOLD, 12));
+        btnCargarArchivo.setBounds(350, 15, 200, 25);
+        panelControlProductos.add(btnCargarArchivo);
+        ActionListener buscarArchivo = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                File ArchivoSeleccionado;
+                JFileChooser ventanaSeleccion = new JFileChooser();
+                ventanaSeleccion.showOpenDialog(null);
+                ArchivoSeleccionado = ventanaSeleccion.getSelectedFile();
+                System.out.println("La ubicación del archivo es " + ArchivoSeleccionado.getPath());
+                leerArchivoCSV(ArchivoSeleccionado.getPath());
+                
+            }
+        };
+        btnCargarArchivo.addActionListener(buscarArchivo);
+        
     }
+
+    public void leerArchivoCSV2(String ruta){
+     try{
+         BufferedReader archivoTemporal = new BufferedReader(new FileReader(ruta));
+         String lineaLeida = "";
+         while (lineaLeida != null){                
+             lineaLeida = archivoTemporal.readLine();
+             if(lineaLeida != null){
+               System.out.println(lineaLeida);
+             }
+         }
+         archivoTemporal.close();
+      }catch(IOException error){
+         JOptionPane.showMessageDialog(null, "No se pudo abrir el archivo CSV");
+      }
+    }
+    
 }
