@@ -496,7 +496,7 @@ public class ventana extends JFrame {
             escribir.println("</html>");
 
             escribir.close();
-            JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta REPORTES");
+            JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta reporte_cliente");
         } catch (IOException error) {
             JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
         }
@@ -758,7 +758,7 @@ public class ventana extends JFrame {
             escribir.println("</html>");
 
             escribir.close();
-            JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta REPORTES");
+            JOptionPane.showMessageDialog(null, "Reporte creado con exito, este se encuentra en la carpeta reporte_producto");
         } catch (IOException error) {
             JOptionPane.showMessageDialog(null, "No se pudo crear el reporte");
         }        
